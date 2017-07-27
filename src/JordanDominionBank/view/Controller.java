@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
  * Created by Jordan on 7/19/2017.
  */
 public class Controller {
+
+    // fx:id's that are used inside of Login.fxml.
     @FXML
     TextField username;
     @FXML
@@ -24,14 +26,18 @@ public class Controller {
     @FXML
     Label error;
 
+    //This initializes the login button as disabled in the start of the program.
     public void initialize(){
         login.setDisable(true);
     }
+
 
     @FXML
     private void onButtonClicked(){
         System.out.println(username.getText());
     }
+
+    //This methods will enable the login button when the input fields are filled.
     @FXML
     private void checkFields(){
         if(username.getText().isEmpty() || password.getText().isEmpty()){
@@ -41,6 +47,7 @@ public class Controller {
         }
     }
 
+    // Authenticating the login info. If both the username and the password exists in the database, a new Account scene will appear.
     @FXML
     private void login() {
         if(username.getText().equals(Database.getUsername()) &&

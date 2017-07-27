@@ -21,6 +21,7 @@ public class User {
 
     public User(String name, String address, int phoneNumber) {
         this.name = name;
+        //Randomly generated unique id for the user.
         this.id = UUID.randomUUID().toString();
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -51,6 +52,7 @@ public class User {
     public String getAddress() {
         return address;
     }
+
 
     public String getPhoneNumber() {
         return String.valueOf(this.phoneNumber).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1)-$2-$3");
