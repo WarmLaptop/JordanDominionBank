@@ -21,12 +21,15 @@ import java.util.Optional;
 public class AccountController {
     User user;
 
+    //fx:id's for the fxml file.
     @FXML
     ListView<Account> accounts;
 
     @FXML
     TextArea accountInfo;
 
+    //Initializes the account by getting the user info from the database class.
+    //The account retrieves all items from the user info.
     public void initialize(){
         user = Database.getUser();
         accounts.getItems().addAll(user.getAccounts());
@@ -34,6 +37,7 @@ public class AccountController {
 
     @FXML
     private void showAddAccount(){
+        //New dialog:
         Dialog<ButtonType> addAccountDialog = new Dialog<>();
         addAccountDialog.initOwner(Main.getTheStage());
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -41,6 +45,7 @@ public class AccountController {
         try{
             addAccountDialog.getDialogPane().setContent(fxmlLoader.load());}
         catch (IOException e){}
+
         addAccountDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         addAccountDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
