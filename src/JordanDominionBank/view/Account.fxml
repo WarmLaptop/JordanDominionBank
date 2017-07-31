@@ -17,11 +17,12 @@
             <padding>
                 <Insets top="10" left="10"></Insets>
             </padding>
-            <Label text="add Account" onMouseClicked="#showAddAccount"></Label>
+            <Label text="Add Account" onMouseClicked="#showAddAccount"></Label>
             <Label text="Delete Account" onMouseClicked="#deleteAccount"></Label>
-            <Label text="log out" onMouseClicked="#"></Label>
+            <Label text="Log Out" onMouseClicked="#logOut"></Label>
         </VBox>
     </left>
+
 
     <center>
         <VBox>

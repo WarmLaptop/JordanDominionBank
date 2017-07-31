@@ -19,7 +19,7 @@ import java.util.Optional;
  * Created by Jordan on 7/20/2017.
  */
 public class AccountController {
-    User user;
+    private User user;
 
     //fx:id's for the fxml file.
     @FXML
@@ -59,8 +59,7 @@ public class AccountController {
                 user.addAccount(new ChequingAccount());
             }
         }
-
-        updateListview();
+        updateListView();
     }
 
     @FXML
@@ -72,17 +71,16 @@ public class AccountController {
     @FXML
     private void deleteAccount(){
         user.getAccounts().remove(accounts.getSelectionModel().getSelectedItem());
-        updateListview();
+        updateListView();
     }
 
-    private void updateListview(){
+    private void updateListView(){
         accounts.getItems().clear();
         accounts.getItems().addAll(user.getAccounts());
     }
 
     @FXML
     private void logOut(){
-
         Main.getTheStage().setTitle("Login");
         Main.getTheStage().setScene(Main.getLoginScene());
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -92,9 +90,6 @@ public class AccountController {
         catch (IOException e){
             e.getStackTrace();
         }
-
-
-
     }
 
 }

@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 /**
  * Created by Jordan on 7/19/2017.
  */
+
+//Controller for Login.fxml.
 public class Controller {
 
     // fx:id's that are used inside of Login.fxml.
@@ -53,11 +55,14 @@ public class Controller {
         if(username.getText().equals(Database.getUsername()) &&
                 password.getText().equals(Database.getPassword())){
             try{
-                Parent root = FXMLLoader.load(getClass().getResource("view/Account.fxml"));
+                //A simple way of changing scenes by swapping out the scene root, rather than changing the pane of the scene.
+                Parent root = FXMLLoader.load(getClass().getResource("Account.fxml"));
                 Scene Account = new Scene(root,500,400);
-                Main.getTheStage().setScene(Account);}
+                Main.getTheStage().setScene(Account);
+            }
             catch (Exception e){
-                System.out.println(e.getStackTrace());
+                System.out.println("error");
+                //System.out.println(e.getStackTrace());
             }
         } else{
             error.setText("You are a fraud. GTFO!");

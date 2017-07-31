@@ -7,7 +7,6 @@ import JordanDominionBank.model.SavingsAccount;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,7 +56,7 @@ public class Database {
 
         //Opens a second buffered reader object for the Accounts Information txt file. (FORMAT: saving,100)
         BufferedReader br2 = Files.newBufferedReader(path2);
-        //Cycles through the lines to be splitted and be added in its respective account types.
+        //Cycles through the lines to be split and be added in its respective account types.
         while ((data = br2.readLine()) != null) {
             String[] dataSplitted = data.split(",");
             if (dataSplitted[0].equals("saving")) {
@@ -78,8 +77,8 @@ public class Database {
 
     public static void save() throws IOException {
         //Similar structure to load() method. The database is saved.
-        Path path = Paths.get("JordanDominionBank\\util\\AccountsInformation.txt");
-        System.out.println(path);
+        Path path = Paths.get("C:\\Users\\Jordan\\Desktop\\NuPhysics\\Final Project\\src\\JordanDominionBank\\util\\AccountsInformation.txt");
+        //System.out.println(path);
         BufferedWriter bw = Files.newBufferedWriter(path);
 
         Iterator<Account> iterator = user.getAccounts().iterator();
