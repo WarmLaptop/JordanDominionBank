@@ -1,1 +1,2 @@
-saving,100
+saving,200
+chequing,150

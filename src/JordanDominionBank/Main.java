@@ -21,11 +21,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         theStage = primaryStage;
         //The Login.fxml becomes the loader for the parent
-        Parent root = FXMLLoader.load(getClass().getResource("view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
         //With the login fxml, a new Scene is instantiated using the declared root.
-        loginScene = new Scene(root, 300, 275);
+        loginScene = new Scene(root, 500, 300);
         primaryStage.setScene(loginScene);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Jordan Dominion Bank");
         primaryStage.show();
     }
 

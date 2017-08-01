@@ -5,12 +5,11 @@ import JordanDominionBank.model.Account;
 import JordanDominionBank.model.ChequingAccount;
 import JordanDominionBank.model.SavingsAccount;
 import JordanDominionBank.util.Database;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -21,18 +20,21 @@ import java.util.Optional;
 public class AccountController {
     private User user;
 
-    //fx:id's for the fxml file.
+    //fx:id's for the Account.fxml file.
     @FXML
     ListView<Account> accounts;
-
     @FXML
     TextArea accountInfo;
+
+    @FXML
+    TextField withdrawAmount;
 
     //Initializes the account by getting the user info from the database class.
     //The account retrieves all items from the user info.
     public void initialize(){
         user = Database.getUser();
         accounts.getItems().addAll(user.getAccounts());
+
     }
 
     @FXML
@@ -51,6 +53,8 @@ public class AccountController {
 
         Optional<ButtonType> result = addAccountDialog.showAndWait();
 
+
+
         if(result.get() == ButtonType.OK && result.isPresent()){
             AddAccount controller = fxmlLoader.getController();
             if(controller.accountType.getValue().equals("Saving")){
@@ -59,6 +63,10 @@ public class AccountController {
                 user.addAccount(new ChequingAccount());
             }
         }
+//        else {
+//            AddAccount controller = fxmlLoader.getController();
+//            controller.OK.setDisable(true);
+//        }
         updateListView();
     }
 
@@ -77,6 +85,83 @@ public class AccountController {
     private void updateListView(){
         accounts.getItems().clear();
         accounts.getItems().addAll(user.getAccounts());
+    }
+
+//    private void updateAccountInfo(){
+//        accountInfo.setText("balance: " + accounts.getSelectionModel().getSelectedItem().getBalance());
+//    }
+
+    @FXML
+    private void deposit(){
+        //New dialog:
+        Dialog<ButtonType> depositDialog = new Dialog<>();
+        depositDialog.initOwner(Main.getTheStage());
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        fxmlLoader.setLocation(getClass().getResource("Deposit.fxml"));
+        try{
+            depositDialog.getDialogPane().setContent(fxmlLoader.load());}
+
+        catch (IOException e){}
+
+        depositDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        depositDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Deposit controller = fxmlLoader.getController();
+
+        // Force the deposit text field to be numeric value only.
+        controller.depositAmount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    controller.depositAmount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        Optional<ButtonType> result = depositDialog.showAndWait();
+
+
+        if(result.get() == ButtonType.OK && result.isPresent()){
+            //Deposit controller = fxmlLoader.getController();
+            accounts.getSelectionModel().getSelectedItem().deposit(Integer.parseInt(controller.depositAmount.getText()));
+        }
+        updateListView();
+    }
+
+    @FXML
+    private void withdraw(){
+        //New dialog:
+        Dialog<ButtonType> withdrawDialog = new Dialog<>();
+        withdrawDialog.initOwner(Main.getTheStage());
+        FXMLLoader fxmlLoader = new FXMLLoader();
+
+        fxmlLoader.setLocation(getClass().getResource("Withdraw.fxml"));
+        try{
+            withdrawDialog.getDialogPane().setContent(fxmlLoader.load());}
+
+        catch (IOException e){}
+
+        withdrawDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        withdrawDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        Withdraw controller = fxmlLoader.getController();
+
+        // Force the withdraw text field to be numeric value only.
+        controller.withdrawAmount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    withdrawAmount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        Optional<ButtonType> result = withdrawDialog.showAndWait();
+
+        if(result.get() == ButtonType.OK && result.isPresent()){
+            accounts.getSelectionModel().getSelectedItem().withdraw(Integer.parseInt(controller.withdrawAmount.getText()));
+        }
     }
 
     @FXML

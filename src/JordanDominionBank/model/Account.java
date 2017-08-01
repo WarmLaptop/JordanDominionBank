@@ -20,6 +20,7 @@ public class Account {
     public String getBalance() {
         return balance.getBalance();
     }
+
     //Two cases where dollar and dollar, cent value exists for the method variable.
     public void deposit(int dollar, int cent) {
         this.balance.addMoney(dollar, cent);
@@ -27,6 +28,7 @@ public class Account {
     public void deposit(int dollar) {
         this.balance.addMoney(dollar, 0);
     }
+
     //Same for withdraw. Note that it returns a boolean value. True if subtracted money is smaller than the balance.
     public boolean withdraw(int dollar, int cent) {
         return this.balance.subtractMoney(dollar, cent);
@@ -34,6 +36,7 @@ public class Account {
     public boolean withdraw(int dollar) {
         return this.balance.subtractMoney(dollar, 0);
     }
+
     //Getter for id.
     public int getId() {
         return id;
@@ -60,15 +63,12 @@ public class Account {
         public Money() {
             this(0, 0);
         }
-        //Returns dollar value when only one parameter exists.
-        public Money(int dollar) {
-            this(dollar, 0);
-        }
-        //Returns dollar AND cent value when two parameter exists.
+
+        //Constructor for money:
         public Money(int dollar, int cent) {
             addMoney(dollar, cent);
-
         }
+
         //Getter for the current balance (this.dollar)
         public String getBalance() {
             return this.dollar+"";
@@ -79,7 +79,7 @@ public class Account {
             this.dollar = dollar + (totalCent / 100);
             this.cent = totalCent % 100;
         }
-        //Method for subtracting money.
+        //Method for subtracting money. Returns boolean to check if the subtract was executed properly.
         public boolean subtractMoney(int dollar, int cent) {
             if (dollar > this.dollar || (dollar == this.dollar && cent > this.cent)) {
                 //Error if the method variable amount is larger than the this.dollar amount.
