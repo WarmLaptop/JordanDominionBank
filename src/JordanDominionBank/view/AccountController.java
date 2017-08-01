@@ -43,7 +43,7 @@ public class AccountController {
         Dialog<ButtonType> addAccountDialog = new Dialog<>();
         addAccountDialog.initOwner(Main.getTheStage());
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AddAccount.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../fxml/AddAccount.fxml"));
         try{
             addAccountDialog.getDialogPane().setContent(fxmlLoader.load());}
         catch (IOException e){}
@@ -72,8 +72,10 @@ public class AccountController {
 
     @FXML
     private void showAccountInfo(){
-        accountInfo.setText("balance: " + accounts.getSelectionModel().getSelectedItem().getBalance());
-
+        try{accountInfo.setText("balance: " + accounts.getSelectionModel().getSelectedItem().getBalance());}
+        catch(NullPointerException e){
+            accountInfo.setText("");
+        }
     }
 
     @FXML
@@ -87,20 +89,18 @@ public class AccountController {
         accounts.getItems().addAll(user.getAccounts());
     }
 
-//    private void updateAccountInfo(){
-//        accountInfo.setText("balance: " + accounts.getSelectionModel().getSelectedItem().getBalance());
-//    }
-
     @FXML
     private void deposit(){
-        //New dialog:
+        //New dialog needs a new stage, with a new scene.
         Dialog<ButtonType> depositDialog = new Dialog<>();
         depositDialog.initOwner(Main.getTheStage());
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        fxmlLoader.setLocation(getClass().getResource("Deposit.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../fxml/Deposit.fxml"));
         try{
-            depositDialog.getDialogPane().setContent(fxmlLoader.load());}
+            depositDialog.getDialogPane().setContent(fxmlLoader.load());
+
+        }
 
         catch (IOException e){}
 
@@ -126,17 +126,16 @@ public class AccountController {
             //Deposit controller = fxmlLoader.getController();
             accounts.getSelectionModel().getSelectedItem().deposit(Integer.parseInt(controller.depositAmount.getText()));
         }
-        updateListView();
     }
 
     @FXML
     private void withdraw(){
-        //New dialog:
+        //New dialog needs a new stage, with a new scene.
         Dialog<ButtonType> withdrawDialog = new Dialog<>();
         withdrawDialog.initOwner(Main.getTheStage());
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        fxmlLoader.setLocation(getClass().getResource("Withdraw.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../fxml/Withdraw.fxml"));
         try{
             withdrawDialog.getDialogPane().setContent(fxmlLoader.load());}
 
@@ -170,11 +169,10 @@ public class AccountController {
         Main.getTheStage().setScene(Main.getLoginScene());
         FXMLLoader fxmlLoader = new FXMLLoader();
         try{
-            Main.getLoginScene().setRoot(fxmlLoader.load(getClass().getResource("Login.fxml")));
+            Main.getLoginScene().setRoot(fxmlLoader.load(getClass().getResource("../fxml/Login.fxml")));
         }
         catch (IOException e){
             e.getStackTrace();
         }
     }
-
 }

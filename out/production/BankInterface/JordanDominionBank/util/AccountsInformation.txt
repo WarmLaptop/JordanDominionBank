@@ -1,2 +1,4 @@
-saving,200
-chequing,150
+saving,0
+chequing,0
+saving,0
+chequing,0

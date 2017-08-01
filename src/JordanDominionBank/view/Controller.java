@@ -82,7 +82,7 @@ public class Controller {
         Dialog<ButtonType> newUser = new Dialog<>();
         newUser.initOwner(Main.getTheStage());
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("NewUser.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("../fxml/NewUser.fxml"));
 
         try{
             newUser.getDialogPane().setContent(fxmlLoader.load());}
